@@ -20,9 +20,9 @@ def read_input(filename):
 
 
 def get_matches(numbers, combinations, total):
-    for number in numbers:
+    for index, number in enumerate(numbers):
         match = total - number
-        others = [other for other in numbers if other != number]
+        others = numbers[index + 1:]
 
         if combinations == 2:
             if match in others:
