@@ -19,20 +19,25 @@ def read_input(filename):
     return [int(line) for line in lines]
 
 
-def get_matches(numbers, combinations, total):
-    for index, number in enumerate(numbers):
+def get_matches(numbers, combinations, total, pointer = 0):
+    index = pointer
+    length = len(numbers)
+
+    while index < length:
+        number = numbers[index]
         match = total - number
-        others = numbers[index + 1:]
 
         if combinations == 2:
-            if match in others:
+            if match in numbers:
                 return [number, match]
 
         else:
-            matches = get_matches(others, combinations - 1, match)
+            matches = get_matches(numbers, combinations - 1, match, index + 1)
 
             if matches:
                 return [number, *matches]
+
+        index += 1
 
 
 if __name__ == "__main__":
@@ -43,3 +48,9 @@ if __name__ == "__main__":
     
     second = get_matches(numbers, 3, 2020)
     print(f"{second} -> {mul(second)}")
+    
+    # third = get_matches(numbers, 4, 2020)
+    # print(f"{third} -> {mul(third)}")
+    
+    # fourth = get_matches(numbers, 5, 2020)
+    # print(f"{fourth} -> {mul(fourth)}")
