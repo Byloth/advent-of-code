@@ -1,5 +1,4 @@
-#!/usr/bin/python
-
+#!/usr/bin/env python
 
 def mul(numbers):
     result = 1
@@ -16,7 +15,7 @@ def read_input(filename):
 
     lines = content.split("\n")
 
-    return [int(line) for line in lines]
+    return [int(line) for line in lines if line]
 
 
 def get_matches(numbers, combinations, total, pointer = 0):
@@ -45,12 +44,6 @@ if __name__ == "__main__":
 
     first = get_matches(numbers, 2, 2020)
     print(f"{first} -> {mul(first)}")
-    
+
     second = get_matches(numbers, 3, 2020)
     print(f"{second} -> {mul(second)}")
-    
-    # third = get_matches(numbers, 4, 2020)
-    # print(f"{third} -> {mul(third)}")
-    
-    # fourth = get_matches(numbers, 5, 2020)
-    # print(f"{fourth} -> {mul(fourth)}")
