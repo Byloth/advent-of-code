@@ -13,14 +13,18 @@ def parse_line(line):
     }
 
 
+def parse_input(input):
+    lines = input.split("\n")
+    lines = map(parse_line, [line for line in lines])
+
+    return [line for line in lines]
+
+
 def read_input(filename):
     with open(filename) as file:
         content = file.read()
 
-    lines = content.split("\n")
-    lines = map(parse_line, [line for line in lines if line])
-
-    return [line for line in lines]
+    return parse_input(content)
 
 
 def min_max_valid_passwords(passwords):

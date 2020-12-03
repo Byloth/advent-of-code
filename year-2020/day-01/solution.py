@@ -9,13 +9,17 @@ def mul(numbers):
     return result
 
 
+def parse_input(input):
+    lines = input.split("\n")
+
+    return [int(line) for line in lines]
+
+
 def read_input(filename):
     with open(filename) as file:
         content = file.read()
 
-    lines = content.split("\n")
-
-    return [int(line) for line in lines if line]
+    return parse_input(content)
 
 
 def get_matches(numbers, combinations, total, pointer = 0):
