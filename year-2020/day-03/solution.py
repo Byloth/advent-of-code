@@ -1,5 +1,13 @@
 #!/usr/bin/env python
 
+SLOPES = [
+    (1, 1),
+    (3, 1),
+    (5, 1),
+    (7, 1),
+    (1, 2)
+]
+
 
 def parse_line(line):
     return [True if char == '#' else False for char in line]
@@ -37,9 +45,20 @@ def count_trees(trees, addX, addY):
     return count
 
 
+def multiply_all_trees(trees, slopes):
+    result = 1
+
+    for addX, addY in slopes:
+        result *= count_trees(trees, addX, addY)
+
+    return result
+
+
 if __name__ == "__main__":
     trees = read_input('input.txt')
 
     first = count_trees(trees, 3, 1)
     print(first)
 
+    second = multiply_all_trees(trees, SLOPES)
+    print(second)
