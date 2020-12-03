@@ -17,7 +17,7 @@ def parse_input(input):
     lines = input.split("\n")
     lines = map(parse_line, [line for line in lines])
 
-    return [line for line in lines]
+    return list(lines)
 
 
 def read_input(filename):
