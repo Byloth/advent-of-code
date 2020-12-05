@@ -51,7 +51,7 @@ def parse_input(input):
     lines = map(parse_line, lines)
 
     return list(lines)
-    
+
 
 def read_input(filename):
     with open(filename) as file:
