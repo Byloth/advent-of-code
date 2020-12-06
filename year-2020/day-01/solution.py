@@ -46,8 +46,8 @@ def get_matches(numbers, combinations, total, pointer = 0):
 if __name__ == "__main__":
     numbers = read_input('input.txt')
 
-    first = get_matches(numbers, 2, 2020)
-    print(f"{first} -> {mul(first)}")
+    first = mul(get_matches(numbers, 2, 2020))
+    print(first)
 
-    second = get_matches(numbers, 3, 2020)
-    print(f"{second} -> {mul(second)}")
+    second = mul(get_matches(numbers, 3, 2020))
+    print(second)
