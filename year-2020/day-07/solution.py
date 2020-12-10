@@ -25,8 +25,8 @@ def parse_line(line):
     return parent, children
 
 
-def parse_input(input):
-    lines = input.split("\n")
+def parse_content(content):
+    lines = content.split("\n")
     lines = map(parse_line, lines)
 
     result = {}
@@ -40,23 +40,21 @@ def parse_input(input):
     return result
 
 
-def compose_input(input):
-    input = parse_input(input)
-
-    for parent_color, parent in input.items():
-        for child_color, child in parent['children'].items():
-            instance = input[child_color]
-            child['instance'] = instance
-            instance['parents'][parent_color] = parent
-
-    return input
-
-
-def read_input(filename):
+def read_file(filename):
     with open(filename) as file:
         content = file.read()
 
-    return compose_input(content)
+    return parse_content(content)
+
+
+def compute_children_and_parents(bags):
+    for parent_color, parent_instance in bags.items():
+        for child_color, child_detail in parent_instance['children'].items():
+            child_instance = bags[child_color]
+            child_detail['instance'] = child_instance
+            child_instance['parents'][parent_color] = parent_instance
+
+    return bags
 
 
 def get_parents_of_bag(bag):
@@ -71,23 +69,24 @@ def get_parents_of_bag(bag):
     return parents
 
 
-def count_all_bags_in_bag(bag):
-    count = 1
+def count_all_bags_in_bag(bag, initial_count = 0):
+    count = initial_count
 
     for child in bag['children'].values():
         weight = child['count']
         instance = child['instance']
 
-        count += count_all_bags_in_bag(instance) * weight
+        count += count_all_bags_in_bag(instance, initial_count = 1) * weight
 
     return count
 
 
 if __name__ == "__main__":
-    bags = read_input('input.txt')
+    bags = read_file('input.txt')
+    bags = compute_children_and_parents(bags)
 
     first = len(get_parents_of_bag(bags["shiny gold"]))
     print(first)
 
-    second = count_all_bags_in_bag(bags["shiny gold"]) - 1
+    second = count_all_bags_in_bag(bags["shiny gold"])
     print(second)

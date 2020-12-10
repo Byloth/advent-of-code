@@ -35,7 +35,7 @@ def get_matches(numbers, combinations, total, pointer = 0):
                 return [number, match]
 
         else:
-            matches = get_matches(numbers, combinations - 1, match, index + 1)
+            matches = get_matches(numbers, combinations - 1, match, pointer = (index + 1))
 
             if matches:
                 return [number, *matches]
