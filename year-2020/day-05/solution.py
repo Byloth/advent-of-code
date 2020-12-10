@@ -22,18 +22,18 @@ def parse_line(line):
     return (row * 8) + column
 
 
-def parse_input(input):
-    lines = input.split("\n")
+def parse_content(content):
+    lines = content.split("\n")
     lines = map(parse_line, lines)
 
     return list(lines)
 
 
-def read_input(filename):
+def read_file(filename):
     with open(filename) as file:
         content = file.read()
 
-    return parse_input(content)
+    return parse_content(content)
 
 
 def get_highest_seat(seats):
@@ -59,7 +59,7 @@ def find_missing_seat(seats):
 
 
 if __name__ == "__main__":
-    seats = read_input('input.txt')
+    seats = read_file('input.txt')
 
     first = get_highest_seat(seats)
     print(first)

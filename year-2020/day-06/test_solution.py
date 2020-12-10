@@ -2,10 +2,10 @@
 
 import unittest
 
-from solution import parse_input, count_any_positive_answers, count_all_positive_answers
+from solution import parse_content, count_any_positive_answers, count_all_positive_answers
 
 
-INPUT = """abc
+TEST_INPUT = """abc
 
 a
 b
@@ -26,7 +26,7 @@ class TestSolution(unittest.TestCase):
     groups = None
 
     def setUp(self):
-        self.groups = parse_input(INPUT)
+        self.groups = parse_content(TEST_INPUT)
 
     def test_count_first_any_positive_answers(self):
         self.assertEqual(count_any_positive_answers(self.groups[0]), 3)

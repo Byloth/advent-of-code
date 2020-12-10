@@ -13,18 +13,18 @@ def parse_line(line):
     }
 
 
-def parse_input(input):
-    lines = input.split("\n")
+def parse_content(content):
+    lines = content.split("\n")
     lines = map(parse_line, [line for line in lines])
 
     return list(lines)
 
 
-def read_input(filename):
+def read_file(filename):
     with open(filename) as file:
         content = file.read()
 
-    return parse_input(content)
+    return parse_content(content)
 
 
 def min_max_valid_passwords(passwords):
@@ -53,7 +53,7 @@ def first_second_password_valid(passwords):
 
 
 if __name__ == "__main__":
-    passwords = read_input('input.txt')
+    passwords = read_file('input.txt')
 
     first = min_max_valid_passwords(passwords)
     print(first)

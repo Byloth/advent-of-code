@@ -46,18 +46,18 @@ def parse_line(line):
     return result
 
 
-def parse_input(input):
-    lines = input.split("\n\n")
+def parse_content(content):
+    lines = content.split("\n\n")
     lines = map(parse_line, lines)
 
     return list(lines)
 
 
-def read_input(filename):
+def read_file(filename):
     with open(filename) as file:
         content = file.read()
 
-    return parse_input(content)
+    return parse_content(content)
 
 
 def has_passport_all_fields(passport):
@@ -97,7 +97,7 @@ def count_valid_passports(passports):
 
 
 if __name__ == "__main__":
-    passports = read_input('input.txt')
+    passports = read_file('input.txt')
 
     first = count_passports_with_all_fields(passports)
     print(first)

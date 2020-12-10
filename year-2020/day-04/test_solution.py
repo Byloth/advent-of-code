@@ -2,10 +2,10 @@
 
 import unittest
 
-from solution import parse_input, count_passports_with_all_fields, count_valid_passports
+from solution import parse_content, count_passports_with_all_fields, count_valid_passports
 
 
-INPUT = """ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
+TEST_INPUT = """ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
 byr:1937 iyr:2017 cid:147 hgt:183cm
 
 eyr:1972 cid:100
@@ -51,7 +51,7 @@ class TestSolution(unittest.TestCase):
     passports = None
 
     def setUp(self):
-        self.passports = parse_input(INPUT)
+        self.passports = parse_content(TEST_INPUT)
 
     def test_count_passports_with_all_fields(self):
         self.assertEqual(count_passports_with_all_fields(self.passports), 10)

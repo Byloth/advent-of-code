@@ -2,10 +2,10 @@
 
 import unittest
 
-from solution import parse_input, get_highest_seat
+from solution import parse_content, get_highest_seat
 
 
-INPUT = """FBFBBFFRLR
+TEST_INPUT = """FBFBBFFRLR
 BFFFBBFRRR
 FFFBBBFRRR
 BBFFBBFRLL"""
@@ -15,7 +15,7 @@ class TestSolution(unittest.TestCase):
     seats = None
 
     def setUp(self):
-        self.seats = parse_input(INPUT)
+        self.seats = parse_content(TEST_INPUT)
 
     def test_get_first_seat_id(self):
         self.assertEqual(self.seats[0], 357)

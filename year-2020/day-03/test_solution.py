@@ -2,10 +2,10 @@
 
 import unittest
 
-from solution import SLOPES, parse_input, count_trees, multiply_all_trees
+from solution import SLOPES, parse_content, count_trees, multiply_all_trees
 
 
-INPUT = """..##.......
+TEST_INPUT = """..##.......
 #...#...#..
 .#....#..#.
 ..#.#...#.#
@@ -22,7 +22,7 @@ class TestSolution(unittest.TestCase):
     trees = None
 
     def setUp(self):
-        self.trees = parse_input(INPUT)
+        self.trees = parse_content(TEST_INPUT)
 
     def test_count_1_1_trees(self):
         self.assertEqual(count_trees(self.trees, 1, 1), 2)

@@ -2,10 +2,10 @@
 
 import unittest
 
-from solution import mul, parse_input, get_matches
+from solution import mul, parse_content, get_matches
 
 
-INPUT = """1721
+TEST_INPUT = """1721
 979
 366
 299
@@ -17,7 +17,7 @@ class TestSolution(unittest.TestCase):
     numbers = None
 
     def setUp(self):
-        self.numbers = parse_input(INPUT)
+        self.numbers = parse_content(TEST_INPUT)
 
     def test_get_2_matches(self):
         self.assertEqual(mul(get_matches(self.numbers, 2, 2020)), 514579)

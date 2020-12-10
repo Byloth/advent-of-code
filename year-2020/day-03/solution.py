@@ -13,18 +13,18 @@ def parse_line(line):
     return [True if char == '#' else False for char in line]
 
 
-def parse_input(input):
-    lines = input.split("\n")
+def parse_content(content):
+    lines = content.split("\n")
     lines = map(parse_line, lines)
 
     return list(lines)
     
 
-def read_input(filename):
+def read_file(filename):
     with open(filename) as file:
         content = file.read()
 
-    return parse_input(content)
+    return parse_content(content)
 
 
 def count_trees(trees, addX, addY):
@@ -55,7 +55,7 @@ def multiply_all_trees(trees, slopes):
 
 
 if __name__ == "__main__":
-    trees = read_input('input.txt')
+    trees = read_file('input.txt')
 
     first = count_trees(trees, 3, 1)
     print(first)
