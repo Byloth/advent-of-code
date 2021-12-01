@@ -4,4 +4,5 @@
 
 **Years played:**
 
-- [2020](year-2020) (Python)
+- [2020](year-2020) using **Python**
+- [2021](year-2021) using **Python**
