@@ -29,7 +29,7 @@ class TestSolution(unittest.TestCase):
         self.assertEqual(window, [200, 207, 240, 269])
 
     def test_get_all_windows_sums(self):
-        sums = [el for el in sum_windows(get_all_windows(self.numbers, 5))]
+        sums = list(sum_windows(get_all_windows(self.numbers, 5)))
 
         self.assertEqual(sums, [1017, 1025, 1065, 1126, 1176, 1239])
 

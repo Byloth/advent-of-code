@@ -52,7 +52,7 @@ def main():
     print(first)
 
     windows = get_all_windows(numbers, 3)
-    sums = [el for el in sum_windows(windows)]
+    sums = list(sum_windows(windows))
     second = count_depths(sums)
 
     print(second)
