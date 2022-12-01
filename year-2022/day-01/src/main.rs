@@ -22,10 +22,14 @@ mod tests {
     #[test]
     fn test_sum() {
         let elves = parse_content(TEST_INPUT);
-        let elves = sum_elves_calories(&elves);
-        let hungriest_elf = find_hungriest_elf(&elves);
+        let mut elves = sum_elves_calories(&elves);
+        let elves = sort_elves(&mut elves);
+    
+        assert_eq!(elves[0], 24000);
+    
+        let top_3_hungriest = elves[0] + elves[1] + elves[2];
 
-        assert_eq!(hungriest_elf, 24000);
+        assert_eq!(top_3_hungriest, 45000);
     }
 }
 
@@ -59,16 +63,11 @@ fn sum_elves_calories(inventories: &Vec<Vec<i32>>) -> Vec<i32> {
 
     return elves;
 }
-fn find_hungriest_elf(elves: &Vec<i32>) -> i32 {
-    let mut hungriest_elf = 0;
+fn sort_elves(elves: &mut Vec<i32>) -> &mut Vec<i32> {
+    elves.sort();
+    elves.reverse();
 
-    for elf in elves {
-        if elf > &hungriest_elf {
-            hungriest_elf = *elf;
-        }
-    }
-
-    return hungriest_elf;
+    return elves;
 }
 
 fn main() {
@@ -76,8 +75,12 @@ fn main() {
         .expect("Something went wrong reading the input file.");
 
     let elves = parse_content(&content);
-    let elves = sum_elves_calories(&elves);
-    let hungriest_elf = find_hungriest_elf(&elves);
+    let mut elves = sum_elves_calories(&elves);
+    let elves = sort_elves(&mut elves);
 
-    println!("{:?}", hungriest_elf);
+    println!("Hungriest: {:?}", elves[0]);
+
+    let top_3_hungriest = elves[0] + elves[1] + elves[2];
+
+    println!("Sum of the Top 3 hungriest: {:?}", top_3_hungriest);
 }
