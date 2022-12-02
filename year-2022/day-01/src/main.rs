@@ -1,5 +1,3 @@
-use std::fs;
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -34,12 +32,12 @@ mod tests {
 }
 
 fn parse_content(content: &str) -> Vec<Vec<i32>> {
-    let mut elves = Vec::<Vec<i32>>::new();
+    let mut elves = vec![];
 
     for elf in content.split("\n\n") {
-        let mut inventory = Vec::<i32>::new();
+        let mut inventory = vec![];
 
-        for calories in elf.split("\n") {
+        for calories in elf.split('\n') {
             inventory.push(calories.parse().unwrap());
         }
 
@@ -49,7 +47,7 @@ fn parse_content(content: &str) -> Vec<Vec<i32>> {
     return elves;
 }
 fn sum_elves_calories(inventories: &Vec<Vec<i32>>) -> Vec<i32> {
-    let mut elves = Vec::<i32>::new();
+    let mut elves = vec![];
 
     for inventory in inventories {
         let mut total_calories = 0;
@@ -71,16 +69,15 @@ fn sort_elves(elves: &mut Vec<i32>) -> &mut Vec<i32> {
 }
 
 fn main() {
-    let content = fs::read_to_string("input.txt")
-        .expect("Something went wrong reading the input file.");
+    let content = include_str!("input.txt");
 
-    let elves = parse_content(&content);
+    let elves = parse_content(content);
     let mut elves = sum_elves_calories(&elves);
     let elves = sort_elves(&mut elves);
 
-    println!("Hungriest: {:?}", elves[0]);
+    println!("Hungriest: {}", elves[0]);
 
     let top_3_hungriest = elves[0] + elves[1] + elves[2];
 
-    println!("Sum of the Top 3 hungriest: {:?}", top_3_hungriest);
+    println!("Sum of the Top 3 hungriest: {}", top_3_hungriest);
 }
