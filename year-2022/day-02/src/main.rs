@@ -1,5 +1,3 @@
-use std::fs;
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -23,10 +21,10 @@ C Z";
 }
 
 fn parse_content(content: &str) -> Vec<(char, char)> {
-    let mut strategy = Vec::<(char, char)>::new();
+    let mut strategy = vec![];
 
-    for round in content.split("\n") {
-        let choices: Vec<&str> = round.split(" ").collect();
+    for round in content.split('\n') {
+        let choices: Vec<&str> = round.split(' ').collect();
 
         let other_choice = choices[0].chars().next().unwrap();
         let my_choice = choices[1].chars().next().unwrap();
@@ -132,16 +130,15 @@ fn compute_strategy_score_2(strategy: Vec<(char, char)>) -> i32 {
 }
 
 fn main() {
-    let content = fs::read_to_string("input.txt")
-        .expect("Something went wrong reading the input file.");
+    let content = include_str!("input.txt");
 
-    let strategy = parse_content(&content);
+    let strategy = parse_content(content);
     let score = compute_strategy_score_1(strategy);
 
-    println!("Score #1: {:?}", score);
+    println!("Score #1: {}", score);
 
-    let strategy = parse_content(&content);
+    let strategy = parse_content(content);
     let score = compute_strategy_score_2(strategy);
 
-    println!("Score #1: {:?}", score);
+    println!("Score #2: {}", score);
 }
