@@ -11,9 +11,14 @@ C Z";
     #[test]
     fn test_sum() {
         let strategy = parse_content(TEST_INPUT);
-        let score = compute_strategy_score(strategy);
+        let score = compute_strategy_score_1(strategy);
 
         assert_eq!(score, 15);
+    
+        let strategy = parse_content(TEST_INPUT);
+        let score = compute_strategy_score_2(strategy);
+
+        assert_eq!(score, 12);
     }
 }
 
@@ -32,7 +37,7 @@ fn parse_content(content: &str) -> Vec<(char, char)> {
     return strategy;
 }
 
-fn compute_round_score(round: (char, char)) -> i32 {
+fn compute_round_score_1(round: (char, char)) -> i32 {
     /*
      * A / X means Rock
      * B / Y means Paper
@@ -67,11 +72,60 @@ fn compute_round_score(round: (char, char)) -> i32 {
         _ => panic!("Your choice is invalid!"),
     };
 }
-fn compute_strategy_score(strategy: Vec<(char, char)>) -> i32 {
+fn compute_strategy_score_1(strategy: Vec<(char, char)>) -> i32 {
     let mut score = 0;
 
     for round in strategy {
-        score += compute_round_score(round);
+        score += compute_round_score_1(round);
+    }
+
+    return score;
+}
+
+fn compute_round_score_2(round: (char, char)) -> i32 {
+    /*
+     * A means Rock
+     * B means Paper
+     * C means Scissors
+     * 
+     * X means you lose
+     * Y means a draw
+     * Z means you win
+     */
+    let other_choice = round.0;
+    let my_choice = round.1;
+
+    return match other_choice {
+        'A' => match my_choice {
+            'X' => 0 + 3,
+            'Y' => 3 + 1,
+            'Z' => 6 + 2,
+
+            _ => panic!("Your choice is invalid!"),
+        },
+        'B' => match my_choice {
+            'X' => 0 + 1,
+            'Y' => 3 + 2,
+            'Z' => 6 + 3,
+
+            _ => panic!("Your choice is invalid!"),
+        },
+        'C' => match my_choice {
+            'X' => 0 + 2,
+            'Y' => 3 + 3,
+            'Z' => 6 + 1,
+
+            _ => panic!("Your choice is invalid!"),
+        },
+
+        _ => panic!("The other choice is invalid!"),
+    };
+}
+fn compute_strategy_score_2(strategy: Vec<(char, char)>) -> i32 {
+    let mut score = 0;
+
+    for round in strategy {
+        score += compute_round_score_2(round);
     }
 
     return score;
@@ -82,7 +136,12 @@ fn main() {
         .expect("Something went wrong reading the input file.");
 
     let strategy = parse_content(&content);
-    let score = compute_strategy_score(strategy);
+    let score = compute_strategy_score_1(strategy);
 
-    println!("Score: {:?}", score);
+    println!("Score #1: {:?}", score);
+
+    let strategy = parse_content(&content);
+    let score = compute_strategy_score_2(strategy);
+
+    println!("Score #1: {:?}", score);
 }
