@@ -18,7 +18,7 @@ mod tests {
 10000";
 
     #[test]
-    fn test_sum() {
+    fn test_solution() {
         let elves = parse_content(TEST_INPUT);
         let mut elves = sum_elves_calories(&elves);
         let elves = sort_elves(&mut elves);
