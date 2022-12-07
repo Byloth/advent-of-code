@@ -7,7 +7,7 @@ B X
 C Z";
 
     #[test]
-    fn test_sum() {
+    fn test_solution() {
         let strategy = parse_content(TEST_INPUT);
         let score = compute_strategy_score_1(&strategy);
 
