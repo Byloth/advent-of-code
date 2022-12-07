@@ -18,6 +18,8 @@ CrZsJsPPZsGzwwsLwLmpwMDw";
     }
 }
 
+const GROUP_SIZE: usize = 3;
+
 fn parse_content(content: &str) -> Vec<(&str, &str)> {
     let mut backpacks = vec![];
 
@@ -31,6 +33,19 @@ fn parse_content(content: &str) -> Vec<(&str, &str)> {
     }
 
     return backpacks;
+}
+
+fn split_into_groups(backpacks: &Vec<(&str, &str)>) -> Vec<&[&(&str, &str)]> {
+    let length = backpacks.len();
+    let mut groups = vec![];
+
+    for index in (0..length).step_by(GROUP_SIZE) {
+        let group = &backpacks[index..index + GROUP_SIZE];
+    
+        groups.push(group);
+    }
+
+    return groups;
 }
 
 fn find_duplicate_item(backpack: (&str, &str)) -> Option<char> {
