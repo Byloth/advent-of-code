@@ -9,13 +9,13 @@ C Z";
     #[test]
     fn test_solution() {
         let strategy = parse_content(TEST_INPUT);
-        let score = compute_strategy_score(&strategy, compute_round_score_by_choices);
+        let score_by_choices = compute_strategy_score(&strategy, compute_round_score_by_choices);
 
-        assert_eq!(score, 15);
+        assert_eq!(score_by_choices, 15);
     
-        let score = compute_strategy_score(&strategy, compute_round_score_by_result);
+        let score_by_result = compute_strategy_score(&strategy, compute_round_score_by_result);
 
-        assert_eq!(score, 12);
+        assert_eq!(score_by_result, 12);
     }
 }
 
@@ -123,11 +123,11 @@ fn main() {
     let content = include_str!("input.txt");
 
     let strategy = parse_content(content);
-    let score = compute_strategy_score(&strategy, compute_round_score_by_choices);
+    let score_by_choices = compute_strategy_score(&strategy, compute_round_score_by_choices);
 
-    println!("Score by choices: {}", score);
+    println!("Score by choices: {}", score_by_choices);
 
-    let score = compute_strategy_score(&strategy, compute_round_score_by_result);
+    let score_by_result = compute_strategy_score(&strategy, compute_round_score_by_result);
 
-    println!("Score by result: {}", score);
+    println!("Score by result: {}", score_by_result);
 }
