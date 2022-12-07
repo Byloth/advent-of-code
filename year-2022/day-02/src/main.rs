@@ -125,9 +125,9 @@ fn main() {
     let strategy = parse_content(content);
     let score = compute_strategy_score(&strategy, compute_round_score_by_choices);
 
-    println!("Score #1: {}", score);
+    println!("Score by choices: {}", score);
 
     let score = compute_strategy_score(&strategy, compute_round_score_by_result);
 
-    println!("Score #2: {}", score);
+    println!("Score by result: {}", score);
 }
