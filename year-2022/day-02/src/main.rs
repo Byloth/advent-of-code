@@ -9,11 +9,11 @@ C Z";
     #[test]
     fn test_solution() {
         let strategy = parse_content(TEST_INPUT);
-        let score = compute_strategy_score_1(&strategy);
+        let score = compute_strategy_score(&strategy, compute_round_score_by_choices);
 
         assert_eq!(score, 15);
     
-        let score = compute_strategy_score_2(&strategy);
+        let score = compute_strategy_score(&strategy, compute_round_score_by_result);
 
         assert_eq!(score, 12);
     }
@@ -34,7 +34,7 @@ fn parse_content(content: &str) -> Vec<(char, char)> {
     return strategy;
 }
 
-fn compute_round_score_1(round: &(char, char)) -> i32 {
+fn compute_round_score_by_choices(round: &(char, char)) -> i32 {
     /*
      * A / X means Rock
      * B / Y means Paper
@@ -69,17 +69,7 @@ fn compute_round_score_1(round: &(char, char)) -> i32 {
         _ => panic!("Your choice is invalid!"),
     };
 }
-fn compute_strategy_score_1(strategy: &Vec<(char, char)>) -> i32 {
-    let mut score = 0;
-
-    for round in strategy {
-        score += compute_round_score_1(&round);
-    }
-
-    return score;
-}
-
-fn compute_round_score_2(round: &(char, char)) -> i32 {
+fn compute_round_score_by_result(round: &(char, char)) -> i32 {
     /*
      * A means Rock
      * B means Paper
@@ -118,11 +108,12 @@ fn compute_round_score_2(round: &(char, char)) -> i32 {
         _ => panic!("The other choice is invalid!"),
     };
 }
-fn compute_strategy_score_2(strategy: &Vec<(char, char)>) -> i32 {
+
+fn compute_strategy_score(strategy: &Vec<(char, char)>, compute_fn: fn(&(char, char)) -> i32) -> i32 {
     let mut score = 0;
 
     for round in strategy {
-        score += compute_round_score_2(&round);
+        score += compute_fn(&round);
     }
 
     return score;
@@ -132,11 +123,11 @@ fn main() {
     let content = include_str!("input.txt");
 
     let strategy = parse_content(content);
-    let score = compute_strategy_score_1(&strategy);
+    let score = compute_strategy_score(&strategy, compute_round_score_by_choices);
 
     println!("Score #1: {}", score);
 
-    let score = compute_strategy_score_2(&strategy);
+    let score = compute_strategy_score(&strategy, compute_round_score_by_result);
 
     println!("Score #2: {}", score);
 }
