@@ -22,8 +22,11 @@ mod tests {
     }
 }
 
-fn parse_content(content: &str) -> Vec<((i32, i32), (i32, i32))> {
-    let mut result = vec![];
+type Schedule = (i32, i32);
+type SchedulePair = (Schedule, Schedule);
+
+fn parse_content(content: &str) -> Vec<SchedulePair> {
+    let mut result: Vec<SchedulePair> = vec![];
 
     for line in content.lines() {
         let mut pairs = line.split(',');
@@ -50,7 +53,7 @@ fn parse_content(content: &str) -> Vec<((i32, i32), (i32, i32))> {
     return result;
 }
 
-fn is_schedule_redundant(schedule: &((i32, i32), (i32, i32))) -> bool {
+fn is_schedule_redundant(schedule: &SchedulePair) -> bool {
     let (left, right) = schedule;
 
     if left.0 <= right.0 && left.1 >= right.1 {
@@ -62,7 +65,7 @@ fn is_schedule_redundant(schedule: &((i32, i32), (i32, i32))) -> bool {
 
     return false;
 }
-fn is_schedule_overlapping(schedule: &((i32, i32), (i32, i32))) -> bool {
+fn is_schedule_overlapping(schedule: &SchedulePair) -> bool {
     let (left, right) = schedule;
 
     if left.0 <= right.0 && left.1 >= right.0 {
@@ -75,8 +78,7 @@ fn is_schedule_overlapping(schedule: &((i32, i32), (i32, i32))) -> bool {
     return false;
 }
 
-fn count_redundant_schedules(schedules: &Vec<((i32, i32), (i32, i32))>,
-                             check_fn: fn(&((i32, i32), (i32, i32))) -> bool) -> i32 {
+fn count_redundant_schedules(schedules: &Vec<SchedulePair>, check_fn: fn(&SchedulePair) -> bool) -> i32 {
     let mut result = 0;
 
     for schedule in schedules {
