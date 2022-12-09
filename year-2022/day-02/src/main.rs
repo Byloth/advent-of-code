@@ -109,11 +109,11 @@ fn compute_round_score_by_result(round: &(char, char)) -> i32 {
     };
 }
 
-fn compute_strategy_score(strategy: &Vec<(char, char)>, compute_fn: fn(&(char, char)) -> i32) -> i32 {
+fn compute_strategy_score(strategy: &[(char, char)], compute_fn: fn(&(char, char)) -> i32) -> i32 {
     let mut score = 0;
 
     for round in strategy {
-        score += compute_fn(&round);
+        score += compute_fn(round);
     }
 
     return score;

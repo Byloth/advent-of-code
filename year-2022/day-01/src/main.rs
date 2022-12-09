@@ -46,7 +46,7 @@ fn parse_content(content: &str) -> Vec<Vec<i32>> {
 
     return elves;
 }
-fn sum_elves_calories(inventories: &Vec<Vec<i32>>) -> Vec<i32> {
+fn sum_elves_calories(inventories: &[Vec<i32>]) -> Vec<i32> {
     let mut elves = vec![];
 
     for inventory in inventories {
@@ -61,7 +61,7 @@ fn sum_elves_calories(inventories: &Vec<Vec<i32>>) -> Vec<i32> {
 
     return elves;
 }
-fn sort_elves(elves: &mut Vec<i32>) -> &mut Vec<i32> {
+fn sort_elves(elves: &mut [i32]) -> &mut [i32] {
     elves.sort();
     elves.reverse();
 
