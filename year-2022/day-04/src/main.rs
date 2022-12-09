@@ -12,9 +12,13 @@ mod tests {
     #[test]
     fn test_solution() {
         let schedules = parse_content(TEST_INPUT);
-        let redundant_schedules = count_redundant_schedules(&schedules);
+        let redundant_schedules = count_redundant_schedules(&schedules, is_schedule_redundant);
 
         assert_eq!(redundant_schedules, 2);
+
+        let overlapping_schedules = count_redundant_schedules(&schedules, is_schedule_overlapping);
+
+        assert_eq!(overlapping_schedules, 4);
     }
 }
 
@@ -58,11 +62,25 @@ fn is_schedule_redundant(schedule: &((i32, i32), (i32, i32))) -> bool {
 
     return false;
 }
-fn count_redundant_schedules(schedules: &Vec<((i32, i32), (i32, i32))>) -> i32 {
+fn is_schedule_overlapping(schedule: &((i32, i32), (i32, i32))) -> bool {
+    let (left, right) = schedule;
+
+    if left.0 <= right.0 && left.1 >= right.0 {
+        return true;
+    }
+    if right.0 <= left.0 && right.1 >= left.0 {
+        return true;
+    }
+
+    return false;
+}
+
+fn count_redundant_schedules(schedules: &Vec<((i32, i32), (i32, i32))>,
+                             check_fn: fn(&((i32, i32), (i32, i32))) -> bool) -> i32 {
     let mut result = 0;
 
     for schedule in schedules {
-        if is_schedule_redundant(schedule) {
+        if check_fn(schedule) {
             result += 1;
         }
     }
@@ -74,7 +92,11 @@ fn main() {
     let content = include_str!("input.txt");
 
     let schedules = parse_content(content);
-    let redundant_schedules = count_redundant_schedules(&schedules);
+    let redundant_schedules = count_redundant_schedules(&schedules, is_schedule_redundant);
 
     println!("Redundant schedules: {}", redundant_schedules);
+
+    let overlapping_schedules = count_redundant_schedules(&schedules, is_schedule_overlapping);
+
+    println!("Overlapping schedules: {}", overlapping_schedules);
 }
