@@ -59,11 +59,12 @@ fn split_into_groups<'a>(backpacks: &'a [&str]) -> Vec<Vec<&'a str>> {
     return groups;
 }
 
-fn find_duplicate_item(backpack: (&str, &str)) -> Option<char> {
+fn find_duplicate_item(backpack: (&str, &str)) -> char {
     return backpack.0.chars()
-                     .find(|&item| backpack.1.contains(item));
+                     .find(|&item| backpack.1.contains(item))
+                     .unwrap();
 }
-fn find_group_badge(group: &[&str]) -> Option<char> {
+fn find_group_badge(group: &[&str]) -> char {
     fn _recursive_search(_group: &[&str], _look_for: char) -> Option<char> {
         let _current = _group[0];
 
@@ -79,7 +80,8 @@ fn find_group_badge(group: &[&str]) -> Option<char> {
     }
 
     return group[0].chars()
-                   .find(|character| _recursive_search(&group[1..], *character).is_some());
+                   .find(|character| _recursive_search(&group[1..], *character).is_some())
+                   .unwrap();
 }
 
 fn compute_priority(item: char) -> i32 {
@@ -96,9 +98,9 @@ fn sum_duplicates_priority(backpacks: &[(&str, &str)]) -> i32 {
     let mut sum = 0;
 
     for compartments in backpacks {
-        if let Some(item) = find_duplicate_item(*compartments) {
-            sum += compute_priority(item);
-        }
+        let item = find_duplicate_item(*compartments);
+
+        sum += compute_priority(item);
     }
 
     return sum;
@@ -107,9 +109,9 @@ fn sum_badges_priority(groups: &[Vec<&str>]) -> i32 {
     let mut sum = 0;
 
     for group in groups {
-        if let Some(item) = find_group_badge(group) {
-            sum += compute_priority(item);
-        }
+        let item = find_group_badge(group);
+
+        sum += compute_priority(item);
     }
 
     return sum;
