@@ -60,13 +60,8 @@ fn split_into_groups<'a>(backpacks: &'a [&str]) -> Vec<Vec<&'a str>> {
 }
 
 fn find_duplicate_item(backpack: (&str, &str)) -> Option<char> {
-    for item in backpack.0.chars() {
-        if backpack.1.contains(item) {
-            return Some(item);
-        }
-    }
-    
-    return None;
+    return backpack.0.chars()
+                     .find(|&item| backpack.1.contains(item));
 }
 fn find_group_badge(group: &[&str]) -> Option<char> {
     fn _recursive_search(_group: &[&str], _look_for: char) -> Option<char> {
@@ -83,13 +78,8 @@ fn find_group_badge(group: &[&str]) -> Option<char> {
         return None;
     }
 
-    for character in group[0].chars() {
-        if let Some(result) = _recursive_search(&group[1..], character) {
-            return Some(result);
-        }
-    }
-
-    return None;
+    return group[0].chars()
+                   .find(|character| _recursive_search(&group[1..], *character).is_some());
 }
 
 fn compute_priority(item: char) -> i32 {
