@@ -29,24 +29,14 @@ fn parse_content(content: &str) -> Vec<SchedulePair> {
     let mut result: Vec<SchedulePair> = vec![];
 
     for line in content.lines() {
-        let mut pairs = line.split(',');
+        let pairs = line.split_once(',').unwrap();
 
-        let mut left_pair = pairs.next().unwrap().split('-');
-        let mut right_pair = pairs.next().unwrap().split('-');
+        let left_pair = pairs.0.split_once('-').unwrap();
+        let right_pair = pairs.1.split_once('-').unwrap();
 
         result.push((
-            (
-                left_pair.next().unwrap()
-                         .parse().unwrap(),
-                left_pair.next().unwrap()
-                         .parse().unwrap()
-            ),
-            (
-                right_pair.next().unwrap()
-                          .parse().unwrap(),
-                right_pair.next().unwrap()
-                          .parse().unwrap()
-            )
+            (left_pair.0.parse().unwrap(), left_pair.1.parse().unwrap()),
+            (right_pair.0.parse().unwrap(), right_pair.1.parse().unwrap())
         ));
     }
 
