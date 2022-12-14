@@ -15,13 +15,11 @@ mod tests {
         let redundant_schedules: usize = schedules.iter()
                                                   .filter(|pair| pair.is_redundant())
                                                   .count();
-
         assert_eq!(redundant_schedules, 2);
 
         let overlapping_schedules: usize = schedules.iter()
                                                     .filter(|pair| pair.is_overlapping())
                                                     .count();
-
         assert_eq!(overlapping_schedules, 4);
     }
 }
