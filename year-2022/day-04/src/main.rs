@@ -12,13 +12,13 @@ mod tests {
     #[test]
     fn test_solution() {
         let schedules = parse_content(TEST_INPUT);
-        let redundant_schedules = schedules.iter()
+        let redundant_schedules: usize = schedules.iter()
                                                   .filter(|pair| pair.is_redundant())
                                                   .count();
 
         assert_eq!(redundant_schedules, 2);
 
-        let overlapping_schedules = schedules.iter()
+        let overlapping_schedules: usize = schedules.iter()
                                                     .filter(|pair| pair.is_overlapping())
                                                     .count();
 
@@ -82,13 +82,13 @@ fn main() {
     let content = include_str!("input.txt");
 
     let schedules = parse_content(content);
-    let redundant_schedules = schedules.iter()
+    let redundant_schedules: usize = schedules.iter()
                                               .filter(|pair| pair.is_redundant())
                                               .count();
 
     println!("Redundant schedules: {}", redundant_schedules);
 
-    let overlapping_schedules = schedules.iter()
+    let overlapping_schedules: usize = schedules.iter()
                                                 .filter(|pair| pair.is_overlapping())
                                                 .count();
 
