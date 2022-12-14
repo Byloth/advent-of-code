@@ -37,7 +37,7 @@ fn parse_content(content: &str) -> Vec<Vec<i32>> {
     for elf in content.split("\n\n") {
         let mut inventory = vec![];
 
-        for calories in elf.split('\n') {
+        for calories in elf.lines() {
             inventory.push(calories.parse().unwrap());
         }
 

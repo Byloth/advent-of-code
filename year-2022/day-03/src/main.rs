@@ -26,13 +26,8 @@ CrZsJsPPZsGzwwsLwLmpwMDw";
 const GROUP_SIZE: usize = 3;
 
 fn parse_content(content: &str) -> Vec<&str> {
-    let mut backpacks = vec![];
-
-    for items in content.split('\n') {
-        backpacks.push(items);
-    }
-
-    return backpacks;
+    return content.lines()
+                  .collect();
 }
 
 fn split_into_compartments<'a>(backpacks: &'a [&str]) -> Vec<(&'a str, &'a str)> {

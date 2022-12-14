@@ -22,7 +22,7 @@ C Z";
 fn parse_content(content: &str) -> Vec<(char, char)> {
     let mut strategy = vec![];
 
-    for round in content.split('\n') {
+    for round in content.lines() {
         let choices: Vec<&str> = round.split(' ').collect();
 
         let other_choice = choices[0].chars().next().unwrap();
