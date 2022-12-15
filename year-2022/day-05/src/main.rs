@@ -18,12 +18,22 @@ move 1 from 1 to 2";
 
     #[test]
     fn test_solution() {
-        let (mut stacks, procedure) = parse_content(TEST_INPUT, 3);
+        let (stacks, procedure) = TEST_INPUT.split_once("\n\n").unwrap();
 
-        run_procudure(&mut stacks, &procedure);
+        let procedure = parse_procedure(procedure);
+        let mut lifo_stacks = parse_stacks(stacks, 3);
 
-        let message = get_last_crates(&stacks);
-        assert_eq!(message, "CMZ");
+        procedure.iter().for_each(|instruction| instruction.execute_lifo(&mut lifo_stacks));
+
+        let lifo_message = compose_message(&lifo_stacks);
+        assert_eq!(lifo_message, "CMZ");
+
+        let mut fifo_stacks = parse_stacks(stacks, 3);
+    
+        procedure.iter().for_each(|instruction| instruction.execute_fifo(&mut fifo_stacks));
+    
+        let fifo_message = compose_message(&fifo_stacks);
+        assert_eq!(fifo_message, "MCD");
     }
 }
 
@@ -51,7 +61,16 @@ impl Instruction {
         };
     }
 
-    fn execute(&self, stacks: &mut [VecDeque<char>]) {
+    fn execute_fifo(&self, stacks: &mut [VecDeque<char>]) {
+        let index = stacks[self.from].len() - self.size;
+
+        for _ in 0..self.size {
+            let value = stacks[self.from].remove(index).unwrap();
+
+            stacks[self.to].push_back(value);
+        }
+    }
+    fn execute_lifo(&self, stacks: &mut [VecDeque<char>]) {
         for _ in 0..self.size {
             let value = stacks[self.from].pop_back().unwrap();
 
@@ -87,22 +106,7 @@ fn parse_procedure(value: &str) -> Vec<Instruction> {
                 .collect();
 }
 
-fn parse_content(content: &str, stacks_number: usize) -> (Vec<VecDeque<char>>, Vec<Instruction>) {
-    let (stacks, procedure) = content.split_once("\n\n").unwrap();
-
-    let stacks = parse_stacks(stacks, stacks_number);
-    let procedure = parse_procedure(procedure);
-
-    return (stacks, procedure);
-}
-
-fn run_procudure(stacks: &mut [VecDeque<char>], procedure: &Vec<Instruction>) {
-    for instruction in procedure {
-        instruction.execute(stacks);
-    }
-}
-
-fn get_last_crates(stacks: &[VecDeque<char>]) -> String {
+fn compose_message(stacks: &[VecDeque<char>]) -> String {
     let mut result = String::new();
 
     for stack in stacks {
@@ -115,10 +119,20 @@ fn get_last_crates(stacks: &[VecDeque<char>]) -> String {
 fn main() {
     let content = include_str!("input.txt");
 
-    let (mut stacks, procedure) = parse_content(&content, 9);
+    let (stacks, procedure) = content.split_once("\n\n").unwrap();
 
-    run_procudure(&mut stacks, &procedure);
+    let procedure = parse_procedure(procedure);
+    let mut lifo_stacks = parse_stacks(stacks, 9);
 
-    let message = get_last_crates(&stacks);
-    println!("The message is: {}", message);
+    procedure.iter().for_each(|instruction| instruction.execute_lifo(&mut lifo_stacks));
+
+    let lifo_message = compose_message(&lifo_stacks);
+    println!("The LI-FO message is: {}", lifo_message);
+
+    let mut fifo_stacks = parse_stacks(stacks, 9);
+
+    procedure.iter().for_each(|instruction| instruction.execute_fifo(&mut fifo_stacks));
+
+    let fifo_message = compose_message(&fifo_stacks);
+    println!("The FI-FO message is: {}", fifo_message);
 }
