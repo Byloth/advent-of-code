@@ -1,3 +1,4 @@
+#[cfg(test)]
 mod tests {
     use super::*;
 
@@ -9,33 +10,31 @@ mod tests {
 
     #[test]
     fn test_solution() {
-        let start_marker_1 = find_start_marker(TEST_INPUT_1);
-        assert_eq!(start_marker_1, 7);
+        assert_eq!(find_start_marker(TEST_INPUT_1, 4), 7);
+        assert_eq!(find_start_marker(TEST_INPUT_1, 14), 19);
 
-        let start_marker_2 = find_start_marker(TEST_INPUT_2);
-        assert_eq!(start_marker_2, 5);
+        assert_eq!(find_start_marker(TEST_INPUT_2, 4), 5);
+        assert_eq!(find_start_marker(TEST_INPUT_2, 14), 23);
 
-        let start_marker_3 = find_start_marker(TEST_INPUT_3);
-        assert_eq!(start_marker_3, 6);
+        assert_eq!(find_start_marker(TEST_INPUT_3, 4), 6);
+        assert_eq!(find_start_marker(TEST_INPUT_3, 14), 23);
 
-        let start_marker_4 = find_start_marker(TEST_INPUT_4);
-        assert_eq!(start_marker_4, 10);
+        assert_eq!(find_start_marker(TEST_INPUT_4, 4), 10);
+        assert_eq!(find_start_marker(TEST_INPUT_4, 14), 29);
 
-        let start_marker_5 = find_start_marker(TEST_INPUT_5);
-        assert_eq!(start_marker_5, 11);
+        assert_eq!(find_start_marker(TEST_INPUT_5, 4), 11);
+        assert_eq!(find_start_marker(TEST_INPUT_5, 14), 26);
 
     }
 }
 
-const START_MARKER_SIZE: usize = 4;
-
-fn are_all_chars_different(chars: &[char]) -> bool {
+fn are_all_chars_different(chars: &[char], size: usize) -> bool {
     let mut index = 0;
 
-    while index < (START_MARKER_SIZE - 1) {
+    while index < (size - 1) {
         let mut jndex = index + 1;
 
-        while jndex < START_MARKER_SIZE {
+        while jndex < size {
             if chars[index] == chars[jndex] {
                 return false;
             }
@@ -49,17 +48,17 @@ fn are_all_chars_different(chars: &[char]) -> bool {
     return true;
 }
 
-fn find_start_marker(content: &str) -> usize {
+fn find_start_marker(content: &str, size: usize) -> usize {
     let mut counter = 0;
-    let mut start_marker: Vec<char> = vec!['\0'; START_MARKER_SIZE];
+    let mut start_marker: Vec<char> = vec!['\0'; size];
 
     for character in content.chars() {
         start_marker.rotate_left(1);
-        start_marker[START_MARKER_SIZE - 1] = character;
+        start_marker[size - 1] = character;
 
         counter += 1;
 
-        if counter >= START_MARKER_SIZE && are_all_chars_different(&start_marker) {
+        if counter >= size && are_all_chars_different(&start_marker, size) {
             break;
         }
     }
@@ -70,6 +69,9 @@ fn find_start_marker(content: &str) -> usize {
 fn main() {
     let content = include_str!("input.txt");
 
-    let start_marker = find_start_marker(content);
-    println!("Start marker: {}", start_marker);
+    let start_marker_4 = find_start_marker(content, 4);
+    println!("Start marker with size 4: {}", start_marker_4);
+
+    let start_marker_14 = find_start_marker(content, 14);
+    println!("Start marker with size 14: {}", start_marker_14);
 }
