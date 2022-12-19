@@ -31,11 +31,15 @@ struct Schedule {
 }
 impl Schedule {
     fn from_str(value: &str) -> Self {
+        fn _to_int(_value: &str) -> i32 {
+            return _value.parse().unwrap();
+        }
+
         let (start, end) = value.split_once('-').unwrap();
 
         return Self {
-            start: start.parse().unwrap(),
-            end: end.parse().unwrap()
+            start: _to_int(start),
+            end: _to_int(end)
         };
     }
 
