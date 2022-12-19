@@ -29,20 +29,12 @@ mod tests {
 }
 
 fn are_all_chars_different(chars: &[char], size: usize) -> bool {
-    let mut index = 0;
-
-    while index < (size - 1) {
-        let mut jndex = index + 1;
-
-        while jndex < size {
+    for index in 0..(size - 1) {
+        for jndex in (index + 1)..size {
             if chars[index] == chars[jndex] {
                 return false;
             }
-
-            jndex += 1;
         }
-
-        index += 1;
     }
 
     return true;
