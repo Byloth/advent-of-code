@@ -30,7 +30,7 @@ fn parse_content(content: &str) -> Vec<&str> {
                   .collect();
 }
 
-fn split_into_compartments<'a>(backpacks: &'a [&str]) -> Vec<(&'a str, &'a str)> {
+fn split_into_compartments<'lifetime>(backpacks: &'lifetime [&str]) -> Vec<(&'lifetime str, &'lifetime str)> {
     let mut compartments = vec![];
 
     for items in backpacks {
@@ -44,7 +44,7 @@ fn split_into_compartments<'a>(backpacks: &'a [&str]) -> Vec<(&'a str, &'a str)>
 
     return compartments;
 }
-fn split_into_groups<'a>(backpacks: &'a [&str]) -> Vec<Vec<&'a str>> {
+fn split_into_groups<'lifetime>(backpacks: &'lifetime [&str]) -> Vec<Vec<&'lifetime str>> {
     let mut groups = vec![];
 
     for chunk in backpacks.chunks(GROUP_SIZE) {

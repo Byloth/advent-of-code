@@ -58,11 +58,11 @@ struct SchedulePair {
 }
 impl SchedulePair {
     fn from_str(value: &str) -> Self {
-        let pairs = value.split_once(',').unwrap();
+        let (left, right) = value.split_once(',').unwrap();
 
         return Self {
-            left: Schedule::from_str(pairs.0),
-            right: Schedule::from_str(pairs.1)
+            left: Schedule::from_str(left),
+            right: Schedule::from_str(right)
         };
     }
 

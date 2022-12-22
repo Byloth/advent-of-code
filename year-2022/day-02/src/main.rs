@@ -20,17 +20,17 @@ C Z";
 }
 
 fn parse_content(content: &str) -> Vec<(char, char)> {
-    fn _get_char(_choices: &[&str], _index: usize) -> char {
-        return _choices[_index].chars().next().unwrap();
+    fn _get_char(_choice: &str) -> char {
+        return _choice.chars().next().unwrap();
     }
 
     let mut strategy = vec![];
 
     for round in content.lines() {
-        let choices: Vec<&str> = round.split(' ').collect();
+        let (other_round, my_round) = round.split_once(' ').unwrap();
 
-        let other_choice = _get_char(&choices, 0);
-        let my_choice = _get_char(&choices, 1);
+        let other_choice = _get_char(other_round);
+        let my_choice = _get_char(my_round);
 
         strategy.push((other_choice, my_choice));
     }
