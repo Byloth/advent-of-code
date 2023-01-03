@@ -31,9 +31,9 @@ $ ls
         let file_system = init_file_system(TEST_INPUT);
         let sizes = compute_file_system_sizes(&file_system);
 
-        let smaller_sizes = sizes.iter()
+        let smaller_sizes: u32 = sizes.iter()
                                       .filter(|&&size| size < 100000)
-                                      .sum::<u32>();
+                                      .sum();
 
         assert_eq!(smaller_sizes, 94853 + 584);
 
@@ -41,10 +41,10 @@ $ ls
         let space_left = DISK_SIZE - used_size;
         let size_to_free = REQUIRED_SIZE - space_left;
 
-        let &smaller_dir = sizes.iter()
-                                           .filter(|&&size| size >= size_to_free)
-                                           .min()
-                                           .unwrap();
+        let &smaller_dir: &u32 = sizes.iter()
+                                      .filter(|&&size| size >= size_to_free)
+                                      .min()
+                                      .unwrap();
 
         assert_eq!(smaller_dir, 24933642);
     }
@@ -177,9 +177,9 @@ fn main() {
     let file_system = init_file_system(content);
     let sizes = compute_file_system_sizes(&file_system);
 
-    let smaller_sizes = sizes.iter()
+    let smaller_sizes: u32 = sizes.iter()
                                   .filter(|&&size| size < 100000)
-                                  .sum::<u32>();
+                                  .sum();
 
     println!("Sum of all smaller directories: {}", smaller_sizes);
 
@@ -187,10 +187,10 @@ fn main() {
     let space_left = DISK_SIZE - used_size;
     let size_to_free = REQUIRED_SIZE - space_left;
 
-    let &smaller_dir = sizes.iter()
-                                       .filter(|&&size| size >= size_to_free)
-                                       .min()
-                                       .unwrap();
+    let &smaller_dir: &u32 = sizes.iter()
+                                  .filter(|&&size| size >= size_to_free)
+                                  .min()
+                                  .unwrap();
 
     println!("Smaller directory between the greatests: {}", smaller_dir);
 }
