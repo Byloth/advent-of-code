@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 
-from collections import defaultdict
 from functools import partial
 
 
 def parse_line(line: str) -> tuple[int, int]:
     left, right = line.split("   ")
 
-    return (int(left), int(right))
+    return int(left), int(right)
 
 
 def parse_content(content: str) -> list[tuple[int, int]]:
