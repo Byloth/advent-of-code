@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 
-
-def parse_content(content):
+def parse_content(content: str):
     lines = content.split("\n")
 
     return [int(line) for line in lines]
 
 
-def read_file(filename):
-    with open(filename) as file:
+def read_file(filename: str):
+    with open(filename, 'r', encoding='utf-8') as file:
         content = file.read()
 
     return parse_content(content)
@@ -46,16 +45,14 @@ def count_depths(numbers):
 
 
 def main():
-    numbers = read_file('input.txt')
+    numbers = read_file('./input.txt')
     first = count_depths(numbers)
-
-    print(first)
+    print("Solution part 1:", first)
 
     windows = get_all_windows(numbers, 3)
     sums = list(sum_windows(windows))
     second = count_depths(sums)
-
-    print(second)
+    print("Solution part 2:", second)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-
 def parse_numbers(numbers):
     return [int(number) for number in numbers.split(",")]
 
@@ -11,7 +10,7 @@ def parse_boards(boards):
     for board in boards:
         board = board.replace("  ", " ")
         lines = board.split("\n")
-        
+
         rows = []
         for line in lines:
             row = line.strip()
@@ -22,7 +21,7 @@ def parse_boards(boards):
     return result
 
 
-def parse_content(content):
+def parse_content(content: str):
     rows = content.split("\n\n")
 
     numbers = parse_numbers(rows[0])
@@ -31,8 +30,8 @@ def parse_content(content):
     return numbers, boards
 
 
-def read_file(filename):
-    with open(filename) as file:
+def read_file(filename: str):
+    with open(filename, 'r', encoding='utf-8') as file:
         content = file.read()
 
     return parse_content(content)
@@ -77,14 +76,14 @@ def get_last_winning_values(numbers, boards):
         for index, board in enumerate(boards):
             if mark_number(number, board):
                 indexes_to_remove.insert(0, index)
-        
+
         for index in indexes_to_remove:
             if len(boards) > 1:
                 del boards[index]
 
             else:
                 return number, boards[index]
-                
+
 
 def sum_unmarked_cells(board):
     result = 0
@@ -98,20 +97,18 @@ def sum_unmarked_cells(board):
 
 
 def main():
-    numbers, boards = read_file('input.txt')
+    numbers, boards = read_file('./input.txt')
     first_winning_number, first_winning_board = get_first_winning_values(numbers, boards)
 
     score = sum_unmarked_cells(first_winning_board)
     first = score * first_winning_number
-
-    print(first)
+    print("Solution part 1:", first)
 
     last_winning_number, last_winning_board = get_last_winning_values(numbers, boards)
 
     score = sum_unmarked_cells(last_winning_board)
     second = score * last_winning_number
-
-    print(second)
+    print("Solution part 2:", second)
 
 
 if __name__ == "__main__":

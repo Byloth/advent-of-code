@@ -27,9 +27,9 @@ PASSPORT_FIELDS = {
     'iyr': lambda value: 2010 <= int(value) <= 2020,
     'eyr': lambda value: 2020 <= int(value) <= 2030,
     'hgt': check_height,
-    'hcl': lambda value: COLOR_REGEX.match(value),
+    'hcl': COLOR_REGEX.match,
     'ecl': lambda value: value in EYE_COLORS,
-    'pid': lambda value: PASSPORT_REGEX.match(value)
+    'pid': PASSPORT_REGEX.match
 }
 
 
@@ -46,22 +46,22 @@ def parse_line(line):
     return result
 
 
-def parse_content(content):
+def parse_content(content: str):
     lines = content.split("\n\n")
     lines = map(parse_line, lines)
 
     return list(lines)
 
 
-def read_file(filename):
-    with open(filename) as file:
+def read_file(filename: str):
+    with open(filename, 'r', encoding='utf-8') as file:
         content = file.read()
 
     return parse_content(content)
 
 
 def has_passport_all_fields(passport):
-    for field in PASSPORT_FIELDS.keys():
+    for field in PASSPORT_FIELDS:
         if field not in passport:
             return False
 
@@ -96,11 +96,15 @@ def count_valid_passports(passports):
     return count
 
 
-if __name__ == "__main__":
-    passports = read_file('input.txt')
+def main():
+    passports = read_file('./input.txt')
 
     first = count_passports_with_all_fields(passports)
-    print(first)
+    print("Solution part 1:", first)
 
     second = count_valid_passports(passports)
-    print(second)
+    print("Solution part 2:", second)
+
+
+if __name__ == "__main__":
+    main()

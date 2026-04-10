@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-
 def mul(numbers):
     result = 1
 
@@ -16,15 +15,15 @@ def parse_line(line):
     return command, int(value)
 
 
-def parse_content(content):
+def parse_content(content: str):
     lines = content.split("\n")
     lines = map(parse_line, lines)
-    
+
     return list(lines)
 
 
-def read_file(filename):
-    with open(filename) as file:
+def read_file(filename: str):
+    with open(filename, 'r', encoding='utf-8') as file:
         content = file.read()
 
     return parse_content(content)
@@ -67,16 +66,14 @@ def navigate_aim(course):
 
 
 def main():
-    course = read_file('input.txt')
+    course = read_file('./input.txt')
     simple_coordinates = navigate_simple(course)
     first = mul(simple_coordinates)
-
-    print(first)
+    print("Solution part 1:", first)
 
     aim_coordinates = navigate_aim(course)
     second = mul(aim_coordinates)
-
-    print(second)
+    print("Solution part 2:", second)
 
 
 if __name__ == "__main__":

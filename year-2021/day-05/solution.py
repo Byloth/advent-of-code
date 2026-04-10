@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 
-
 def smart_range(num1, num2):
     return range(min(num1, num2), max(num1, num2))
 
 
-def parse_content(content):
+def parse_content(content: str):
     rows = content.split("\n")
 
     vents_coords = []
@@ -19,8 +18,8 @@ def parse_content(content):
     return vents_coords
 
 
-def read_file(filename):
-    with open(filename) as file:
+def read_file(filename: str):
+    with open(filename, 'r', encoding='utf-8') as file:
         content = file.read()
 
     return parse_content(content)
@@ -41,10 +40,11 @@ def draw_vents_on_map(vents_map, vents_coords):
             #
             # ... smart_range(...)
             #
+            pass
 
 
 def main():
-    vents_coords = read_file('input.txt')
+    vents_coords = read_file('./input.txt')
     vents_map = generate_new_vents_map(1000, 1000)
 
 

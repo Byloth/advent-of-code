@@ -9,14 +9,14 @@ def mul(numbers):
     return result
 
 
-def parse_content(content):
+def parse_content(content: str):
     lines = content.split("\n")
 
     return [int(line) for line in lines]
 
 
-def read_file(filename):
-    with open(filename) as file:
+def read_file(filename: str):
+    with open(filename, 'r', encoding='utf-8') as file:
         content = file.read()
 
     return parse_content(content)
@@ -36,18 +36,21 @@ def get_matches(numbers, combinations, total, pointer = 0):
 
         else:
             matches = get_matches(numbers, combinations - 1, match, pointer = (index + 1))
-
             if matches:
                 return [number, *matches]
 
         index += 1
 
 
-if __name__ == "__main__":
-    numbers = read_file('input.txt')
+def main():
+    numbers = read_file('./input.txt')
 
     first = mul(get_matches(numbers, 2, 2020))
-    print(first)
+    print("Solution part 1:", first)
 
     second = mul(get_matches(numbers, 3, 2020))
-    print(second)
+    print("Solution part 2:", second)
+
+
+if __name__ == "__main__":
+    main()

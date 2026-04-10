@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 
-
-def parse_content(content):
+def parse_content(content: str):
     return content.split("\n")
 
 
-def read_file(filename):
-    with open(filename) as file:
+def read_file(filename: str):
+    with open(filename, 'r', encoding='utf-8') as file:
         content = file.read()
 
     return parse_content(content)
@@ -92,7 +91,7 @@ def inverse_binary_string(value):
 
 
 def main():
-    rows = read_file('input.txt')
+    rows = read_file('./input.txt')
 
     most_common_digits = get_most_common_digits(rows)
     least_common_digits = inverse_binary_string(most_common_digits)
@@ -101,15 +100,13 @@ def main():
     epsilon_rate = int(least_common_digits, 2)
 
     first = gamma_rate * epsilon_rate
-
-    print(first)
+    print("Solution part 1:", first)
 
     oxigen_rating = int(get_most_common_number(rows), 2)
     co2_rating = int(get_least_common_number(rows), 2)
 
     second = oxigen_rating * co2_rating
-
-    print(second)
+    print("Solution part 2:", second)
 
 
 if __name__ == "__main__":

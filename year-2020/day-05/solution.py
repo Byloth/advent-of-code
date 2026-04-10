@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-
 def get_row(value):
     value = value.replace("F", "0") \
                  .replace("B", "1")
@@ -22,15 +21,15 @@ def parse_line(line):
     return (row * 8) + column
 
 
-def parse_content(content):
+def parse_content(content: str):
     lines = content.split("\n")
     lines = map(parse_line, lines)
 
     return list(lines)
 
 
-def read_file(filename):
-    with open(filename) as file:
+def read_file(filename: str):
+    with open(filename, 'r', encoding='utf-8') as file:
         content = file.read()
 
     return parse_content(content)
@@ -47,7 +46,6 @@ def get_highest_seat(seats):
 
 def find_missing_seat(seats):
     seats = sorted(seats)
-    length = len(seats)
     value = seats[0]
     index = 1
 
@@ -58,11 +56,15 @@ def find_missing_seat(seats):
     return value + 1
 
 
-if __name__ == "__main__":
-    seats = read_file('input.txt')
+def main():
+    seats = read_file('./input.txt')
 
     first = get_highest_seat(seats)
-    print(first)
+    print("Solution part 1:", first)
 
     second = find_missing_seat(seats)
-    print(second)
+    print("Solution part 2:", second)
+
+
+if __name__ == "__main__":
+    main()

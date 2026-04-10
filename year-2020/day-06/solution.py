@@ -1,19 +1,18 @@
 #!/usr/bin/env python
 
-
 def parse_line(line):
     return line.split("\n")
 
 
-def parse_content(content):
+def parse_content(content: str):
     lines = content.split("\n\n")
     lines = map(parse_line, lines)
 
     return list(lines)
 
 
-def read_file(filename):
-    with open(filename) as file:
+def read_file(filename: str):
+    with open(filename, 'r', encoding='utf-8') as file:
         content = file.read()
 
     return parse_content(content)
@@ -41,11 +40,15 @@ def count_all_positive_answers(group):
     return len(result)
 
 
-if __name__ == "__main__":
-    groups = read_file('input.txt')
+def main():
+    groups = read_file('./input.txt')
 
     first = sum(count_any_positive_answers(group) for group in groups)
-    print(first)
+    print("Solution part 1:", first)
 
     second = sum(count_all_positive_answers(group) for group in groups)
-    print(second)
+    print("Solution part 2:", second)
+
+
+if __name__ == "__main__":
+    main()

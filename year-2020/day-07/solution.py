@@ -25,7 +25,7 @@ def parse_line(line):
     return parent, children
 
 
-def parse_content(content):
+def parse_content(content: str):
     lines = content.split("\n")
     lines = map(parse_line, lines)
 
@@ -40,8 +40,8 @@ def parse_content(content):
     return result
 
 
-def read_file(filename):
-    with open(filename) as file:
+def read_file(filename: str):
+    with open(filename, 'r', encoding='utf-8') as file:
         content = file.read()
 
     return parse_content(content)
@@ -81,12 +81,16 @@ def count_all_bags_in_bag(bag, initial_count = 0):
     return count
 
 
-if __name__ == "__main__":
-    bags = read_file('input.txt')
+def main():
+    bags = read_file('./input.txt')
     bags = compute_children_and_parents(bags)
 
     first = len(get_parents_of_bag(bags["shiny gold"]))
-    print(first)
+    print("Solution part 1:", first)
 
     second = count_all_bags_in_bag(bags["shiny gold"])
-    print(second)
+    print("Solution part 2:", second)
+
+
+if __name__ == "__main__":
+    main()

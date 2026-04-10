@@ -42,7 +42,7 @@ def compute_similarity(left_column: list[int], right_column: list[int]):
             similarity += occurrencies[left]
 
             continue
-    
+
         filter_fn = partial(lambda x, y: x == y, left)
         filtered_rows = filter(filter_fn, right_column)
         count = len(list(filtered_rows))
@@ -61,7 +61,7 @@ def difference_columns(left_column: list[int], right_column: list[int]):
 
 
 def main():
-    rows = read_file('input.txt')
+    rows = read_file('./input.txt')
     left, right = split_columns(rows)
 
     left.sort()
@@ -70,12 +70,10 @@ def main():
     difference = difference_columns(left, right)
 
     first = sum(difference)
-
-    print(first)
+    print("Solution part 1:", first)
 
     second = compute_similarity(left, right)
-
-    print(second)
+    print("Solution part 2:", second)
 
 
 if __name__ == "__main__":

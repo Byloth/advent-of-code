@@ -10,37 +10,37 @@ SLOPES = [
 
 
 def parse_line(line):
-    return [True if char == '#' else False for char in line]
+    return [(char == '#') for char in line]
 
 
-def parse_content(content):
+def parse_content(content: str):
     lines = content.split("\n")
     lines = map(parse_line, lines)
 
     return list(lines)
-    
 
-def read_file(filename):
-    with open(filename) as file:
+
+def read_file(filename: str):
+    with open(filename, 'r', encoding='utf-8') as file:
         content = file.read()
 
     return parse_content(content)
 
 
-def count_trees(trees, addX, addY):
-    lengthY = len(trees)
-    lengthX = len(trees[0])
+def count_trees(trees, add_x, add_y):
+    length_y = len(trees)
+    length_x = len(trees[0])
 
     x = 0
     y = 0
     count = 0
 
-    while y < lengthY:
-        if trees[y][x] == True:
+    while y < length_y:
+        if trees[y][x] is True:
             count += 1
 
-        x = (x + addX) % lengthX
-        y += addY
+        x = (x + add_x) % length_x
+        y += add_y
 
     return count
 
@@ -48,17 +48,21 @@ def count_trees(trees, addX, addY):
 def multiply_all_trees(trees, slopes):
     result = 1
 
-    for addX, addY in slopes:
-        result *= count_trees(trees, addX, addY)
+    for add_x, add_y in slopes:
+        result *= count_trees(trees, add_x, add_y)
 
     return result
 
 
-if __name__ == "__main__":
-    trees = read_file('input.txt')
+def main():
+    trees = read_file('./input.txt')
 
     first = count_trees(trees, 3, 1)
-    print(first)
+    print("Solution part 1:", first)
 
     second = multiply_all_trees(trees, SLOPES)
-    print(second)
+    print("Solution part 2:", second)
+
+
+if __name__ == "__main__":
+    main()

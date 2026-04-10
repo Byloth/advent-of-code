@@ -3,15 +3,15 @@
 MAX_DIFFERENCE = 3
 
 
-def parse_content(content):
+def parse_content(content: str):
     lines = content.split("\n")
-    lines = map(lambda line: int(line), lines)
-    
+    lines = map(int, lines)
+
     return list(lines)
 
 
-def read_file(filename):
-    with open(filename) as file:
+def read_file(filename: str):
+    with open(filename, 'r', encoding='utf-8') as file:
         content = file.read()
 
     return parse_content(content)
@@ -52,7 +52,7 @@ def count_arrangements(adapters):
 
     routes = {}
     index = length - 1
-    
+
     while index >= 0:
         count = 0
         value = adapters[index]
@@ -67,7 +67,7 @@ def count_arrangements(adapters):
                 break
 
             count += routes[next_value]
-            
+
             increment += 1
             next_index = index + increment
 
@@ -77,11 +77,15 @@ def count_arrangements(adapters):
     return routes[adapters[0]]
 
 
-if __name__ == "__main__":
-    adapters = read_file('input.txt')
+def main():
+    adapters = read_file('./input.txt')
 
     one, _, three = count_differences(adapters)
     print(one * three)
 
     second = count_arrangements(adapters)
-    print(second)
+    print("Solution part 2:", second)
+
+
+if __name__ == "__main__":
+    main()

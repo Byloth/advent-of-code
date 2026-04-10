@@ -1,27 +1,28 @@
 #!/usr/bin/env python
 
-
 def parse_line(line):
     instruction, argument = line.split(" ")
 
     return instruction, int(argument)
 
 
-def parse_content(content):
+def parse_content(content: str):
     lines = content.split("\n")
     lines = map(parse_line, lines)
-    
+
     return list(lines)
 
 
-def read_file(filename):
-    with open(filename) as file:
+def read_file(filename: str):
+    with open(filename, 'r', encoding='utf-8') as file:
         content = file.read()
 
     return parse_content(content)
 
 
 def execute(program):
+    # pylint: disable=invalid-name
+
     lines = []
     length = len(program)
 
@@ -95,11 +96,15 @@ def fix_and_execute(program):
     return result
 
 
-if __name__ == "__main__":
-    program = read_file('input.txt')
+def main():
+    program = read_file('./input.txt')
 
-    first, error = execute(program)
-    print(first)
+    first, _ = execute(program)
+    print("Solution part 1:", first)
 
     second = fix_and_execute(program)
-    print(second)
+    print("Solution part 2:", second)
+
+
+if __name__ == "__main__":
+    main()

@@ -15,8 +15,7 @@ def read_file(filename: str) -> list[tuple[int, int]]:
 
 
 def get_mul_instructions(content):
-    for regex_match in MUL_REGEX.finditer(content):
-        yield regex_match
+    yield from MUL_REGEX.finditer(content)
 
 
 def get_enabled_mul_instructions(content):
@@ -43,23 +42,23 @@ def multiply(numbers):
     for left, right in numbers:
         yield left * right
 
+
 def main():
-    content = read_file('input.txt')
+    content = read_file('./input.txt')
     instructions = get_mul_instructions(content)
     numbers = extract_numbers(instructions)
     multiplications = multiply(numbers)
 
     first = sum(multiplications)
-
-    print(first)
+    print("Solution part 1:", first)
 
     instructions = get_enabled_mul_instructions(content)
     numbers = extract_numbers(instructions)
     multiplications = multiply(numbers)
 
     second = sum(multiplications)
+    print("Solution part 2:", second)
 
-    print(second)
 
 if __name__ == "__main__":
     main()

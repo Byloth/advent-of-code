@@ -1,15 +1,14 @@
 #!/usr/bin/env python
 
-
-def parse_content(content):
+def parse_content(content: str):
     lines = content.split("\n")
-    lines = map(lambda line: int(line), lines)
-    
+    lines = map(int, lines)
+
     return list(lines)
 
 
-def read_file(filename):
-    with open(filename) as file:
+def read_file(filename: str):
+    with open(filename, 'r', encoding='utf-8') as file:
         content = file.read()
 
     return parse_content(content)
@@ -53,7 +52,7 @@ def get_contiguous_range_of_sum(sum_to_find, numbers):
     while pointer < length:
         index = pointer
         result = numbers[index]
-        
+
         while result < sum_to_find:
             index += 1
             result += numbers[index]
@@ -75,12 +74,16 @@ def get_smaller_and_greater(numbers, start, end):
     return minimum, maximum
 
 
-if __name__ == "__main__":
-    numbers = read_file('input.txt')
+def main():
+    numbers = read_file('./input.txt')
 
     first = get_first_invalid_line(numbers, 25)
-    print(first)
+    print("Solution part 1:", first)
 
     start, end = get_contiguous_range_of_sum(first, numbers)
     second = sum(get_smaller_and_greater(numbers, start, end))
-    print(second)
+    print("Solution part 2:", second)
+
+
+if __name__ == "__main__":
+    main()
